@@ -1,0 +1,1 @@
+A repository for motor diagnosis via LSTM or some other ANN.

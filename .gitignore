@@ -1,0 +1,8 @@
+!*/test_data/*.py
+!*/train_data/*.py
+!*/save/*.py
+!*/output_data/*.py
+
+*.txt
+*.pyc
+*/__pycache__
