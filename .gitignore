@@ -3,6 +3,8 @@
 !*/save/*.py
 !*/output_data/*.py
 
+*/data/
 *.txt
 *.pyc
 */__pycache__
+*/save/
