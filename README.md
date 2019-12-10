@@ -1,1 +1,9 @@
-A repository for autoregressive prediction via LSTM or some other ANN.
+## 基于LSTM等神经网络的自回归时序预测
+
+目前已发布版本:
+
+|                       更新日志                        |    日期    |     更新内容     |
+| :---------------------------------------------------: | :--------: | :--------------: |
+| [bp](https://github.com/JasonkayZK/predictor/tree/bp) | 2019-12-09 | 发布bp网络的实现 |
+|                                                       |            |                  |
+
