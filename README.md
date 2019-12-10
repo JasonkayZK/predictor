@@ -1,1 +1,1 @@
-A repository for motor diagnosis via LSTM or some other ANN.
+A repository for autoregressive prediction via LSTM or some other ANN.
