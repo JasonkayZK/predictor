@@ -1,0 +1,104 @@
+{
+    "to_data": {
+        "to_flow": {
+            "file_list": [
+                "data/train_data/motor_normal_solved_31.txt", 
+                "data/train_data/motor_normal_solved_57.txt"
+            ],
+            "save_file": "data/train_data/motor_normal_flow_train.txt"
+        },
+        "to_train": {
+            "source_file": "data/train_data/motor_normal_flow_train.txt",
+            "save_file": "data/train_data/motor_train_nSteps25_voltagehigh8_currenthigh5_yhigh0.05.txt",
+            
+            "frame_size": 800000
+        }
+    },
+    "data": {
+        "data_filepath": "data/train_data/motor_train_nSteps25_voltagehigh8_currenthigh5_yhigh0.05.txt",
+        "checkpoint_name": "",
+        "checkpoint_path": "",
+        "model_name": "nStep25_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.2_lstm76_dropout0.2_lstm32_tanh_epoch5_batchsize2909.h5",
+        "model_savepath": "save/"
+    },
+    "data_meta": {
+        "sampling_rate": 8000,
+        "fft_size": 65536,
+        "time_length": 100
+    },
+    "data_process": {
+        "normalize_voltage_high": 8,
+        "normalize_voltage_low": -8,
+        "normalize_current_high": 5,
+        "normalize_current_low": -5,
+        "normalize_y_high": 0.05,
+        "normalize_y_low": -0.05,
+
+        "find_basic_frame_length": 1,
+        "data_use_rate": 0.8,
+
+        "n_steps": 25
+    },
+    "neuron_network": {
+        "layers": [
+			{
+				"type": "lstm",
+				"neurons": 48,
+				"input_timesteps": 25,
+				"input_dim": 6,
+				"return_seq": true
+			},
+			{
+				"type": "dropout",
+				"rate": 0.2
+			},
+			{
+				"type": "lstm",
+				"neurons": 76,
+				"return_seq": true
+			},
+			{
+		        "type": "dropout",
+		        "rate": 0.2
+			},
+			{
+			    "type": "lstm",
+			    "neurons": 32,
+			    "return_seq": false
+			},
+			{
+				"type": "dense",
+				"neurons": 1,
+                "activation": "tanh"
+			}
+        ],
+
+        "loss_method": "mse",
+
+        "optimize_method": "adam"
+    },
+    "train_meta": {
+        "epoch_num": 5,
+        "batch_size": 2909,
+        "data_lines": 1599950,
+
+        "callbacks": {
+            "monitor_patience": 2
+        }
+    }, 
+    "test": {
+        "data_filepath": "data/test_data/motor_normal_solved_24.txt",
+        "model_name": "nStep25_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.2_lstm76_dropout0.2_lstm32_tanh_epoch5_batchsize2909.h5",
+        "model_savepath": "/home/zk/workspace/lstm_motor_diagnosis/lstm_normal/save/",
+
+        "test_savepath": "/home/zk/workspace/lstm_motor_diagnosis/lstm_normal/data/test_output_data/",
+        "origin_filename": "origin_nStep25_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.2_lstm76_dropout0.2_lstm32_tanh_epoch2_batchsize2909.npy",
+        "predict_filename": "predict_nStep25_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.2_lstm76_dropout0.2_lstm32_tanh_epoch2_batchsize2909.npy"
+    },
+
+    "selection": {
+        "activation": ["relu", "softmax", "tanh"],
+        "loss_method": ["mse", "mae", "mse", "mape"],
+        "optimize_method": ["adam", "sgd", "Nadam", "rmsprop"]
+    }
+}
