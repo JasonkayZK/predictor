@@ -2,22 +2,20 @@ A repository for motor diagnosis via LSTM or some other ANN.
 
 ## 基于LSTM神经网络的自回归预测
 
+本分支是基于[RAdam](https://github.com/LiyuanLucasLiu/RAdam)优化器实现
+
 ### 零. 项目依赖
 
 项目基于tensorflow与keras开发, 使用到的相关依赖以及版本如下
 
-|         包名         |  版本  |
-| :------------------: | :----: |
-|      tensorflow      | 1.14.0 |
-|     tensorboard      | 1.14.0 |
-|        numpy         | 1.16.1 |
-|        scipy         | 1.3.3  |
-|        keras         | 2.2.0  |
-| keras-rectified-adam | 0.17.0 |
-
-><br/>
->
->**注: tensorflow与keras不建议用过高版本, 可能会导致兼容问题**
+|          包名          |  版本   |
+| :--------------------: | :-----: |
+|       tensorflow       | 2.0.0b1 |
+| tensorflow-tensorboard |  0.4.0  |
+|         numpy          | 1.17.1  |
+|         scipy          |  1.3.3  |
+|         keras          |  2.3.1  |
+|  keras-rectified-adam  | 0.17.0  |
 
 <br/>
 
@@ -26,32 +24,21 @@ A repository for motor diagnosis via LSTM or some other ANN.
 项目目录结构:
 
 ```bash
-zk@jasonkay:~/workspace/lstm_motor_diagnosis/lstm_normal$ tree
+$ tree
 .
 ├── batch_train.py
 ├── config.json
 ├── data
 │   ├── fault_data
-│   │   └── motor_pianxin_solved_5.txt
 │   ├── fault_output_data
 │   ├── test_data
-│   │   └── motor_normal_solved_24.txt
 │   ├── test_output_data
 │   ├── train_data
-│   │   ├── motor_normal_flow_train.txt
-│   │   ├── motor_normal_solved_31.txt
-│   │   ├── motor_normal_solved_32.txt
-│   │   └── motor_train_nSteps20_voltagehigh8_currenthigh5_yhigh0.1.txt
 │   └── train_output_data
 ├── FftUtils.py
 ├── LstmUtils.py
 ├── predict.py
-├── __pycache__
-│   ├── FftUtils.cpython-36.pyc
-│   └── LstmUtils.cpython-36.pyc
-├── README.md
 ├── save
-│   └── motor_train_nSteps20_voltagehigh8_currenthigh5_yhigh0.1_2file_lstm148_dropout0.3_lstm246_dropout0.2_lstm_216_dropout_0.2_lstm_164_lstm74_tanh_epoch6_batchsize2909_sgd_2file.h5
 ├── toFlowData.py
 └── toTrainData.py
 ```
@@ -105,23 +92,23 @@ zk@jasonkay:~/workspace/lstm_motor_diagnosis/lstm_normal$ tree
     "to_data": {
         "to_flow": {
             "file_list": [
-                "data/train_data/motor_normal_solved_31.txt", 
-                "data/train_data/motor_normal_solved_32.txt"
+                "data/train_data/motor_normal_solved_56.txt", 
+                "data/train_data/motor_normal_solved_57.txt"
             ],
             "save_file": "data/train_data/motor_normal_flow_train.txt"
         },
         "to_train": {
             "source_file": "data/train_data/motor_normal_flow_train.txt",
-            "save_file": "data/train_data/motor_train_nSteps20_voltagehigh8_currenthigh5_yhigh0.1.txt",
+            "save_file": "data/train_data/motor_train_nSteps20_voltagehigh8_currenthigh5_yhigh0.05.txt",
             
             "frame_size": 800000
         }
     },
     "data": {
-        "data_filepath": "data/train_data/motor_train_nSteps20_voltagehigh8_currenthigh5_yhigh0.1.txt",
+        "data_filepath": "data/train_data/motor_train_nSteps20_voltagehigh8_currenthigh5_yhigh0.05.txt",
         "checkpoint_name": "",
         "checkpoint_path": "",
-        "model_name": "motor_train_nSteps20_voltagehigh8_currenthigh5_yhigh0.1_2file_lstm148_dropout0.3_lstm246_dropout0.2_lstm_216_dropout_0.2_lstm_164_lstm74_tanh_epoch6_batchsize2909_sgd_2file.h5",
+        "model_name": "nStep20_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.3_lstm146_dropout0.2_lstm74_tanh_epoch6_batchsize2909.h5",
         "model_savepath": "save/"
     },
     "data_meta": {
@@ -134,8 +121,8 @@ zk@jasonkay:~/workspace/lstm_motor_diagnosis/lstm_normal$ tree
         "normalize_voltage_low": -8,
         "normalize_current_high": 5,
         "normalize_current_low": -5,
-        "normalize_y_high": 0.1,
-        "normalize_y_low": -0.1,
+        "normalize_y_high": 0.05,
+        "normalize_y_low": -0.05,
 
         "find_basic_frame_length": 1,
         "data_use_rate": 0.8,
@@ -146,7 +133,7 @@ zk@jasonkay:~/workspace/lstm_motor_diagnosis/lstm_normal$ tree
         "layers": [
 			{
 				"type": "lstm",
-				"neurons": 148,
+				"neurons": 48,
 				"input_timesteps": 20,
 				"input_dim": 6,
 				"return_seq": true
@@ -157,26 +144,12 @@ zk@jasonkay:~/workspace/lstm_motor_diagnosis/lstm_normal$ tree
 			},
 			{
 				"type": "lstm",
-				"neurons": 246,
+				"neurons": 146,
 				"return_seq": true
-			},
-			{
-		        "type": "dropout",
-		        "rate": 0.2
-			},
-			{
-			    "type": "lstm",
-			    "neurons": 216,
-			    "return_seq": true
 			},
 			{
 			    "type": "dropout",
 			    "rate": 0.2
-			},
-			{
-				"type": "lstm",
-				"neurons": 164,
-				"return_seq": true
 			},
 			{
 			    "type": "lstm",
@@ -192,12 +165,12 @@ zk@jasonkay:~/workspace/lstm_motor_diagnosis/lstm_normal$ tree
 
         "loss_method": "mse",
 
-        "optimize_method": "sgd"
+        "optimize_method": "radam"
     },
     "train_meta": {
-        "epoch_num": 3,
+        "epoch_num": 5,
         "batch_size": 2909,
-        "data_lines": 799975,
+        "data_lines": 1599950,
 
         "callbacks": {
             "monitor_patience": 2
@@ -205,19 +178,19 @@ zk@jasonkay:~/workspace/lstm_motor_diagnosis/lstm_normal$ tree
     }, 
 
     "test": {
-        "data_filepath": "data/test_data/motor_normal_solved_24.txt",
-        "model_name": "motor_train_nSteps20_voltagehigh8_currenthigh5_yhigh0.1_2file_lstm148_dropout0.3_lstm246_dropout0.2_lstm_216_dropout_0.2_lstm_164_lstm74_tanh_epoch6_batchsize2909_sgd_2file.h5",
-        "model_savepath": "/home/zk/workspace/lstm_motor_diagnosis/lstm_normal/save/",
+        "data_filepath": "data/test_data/motor_normal_solved_57.txt",
+        "model_name": "nStep20_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.3_lstm146_dropout0.2_lstm74_tanh_epoch6_batchsize2909.h5",
+        "model_savepath": "/home/zk/workspace/lstm_motor_diagnosis/lstm_radam_non_warmup/save/",
 
-        "test_savepath": "/home/zk/workspace/lstm_motor_diagnosis/lstm_normal/data/test_output_data/",
-        "origin_filename": "origin_nStep25_voltageHigh8_currentHigh5_yHigh_0.05_3file_lstm148_dropout0.3_lstm246_dropout0.2_lstm_216_dropout_0.2_lstm_164_lstm74_tanh_epoch6_batchsize2909_4file_motor_normal_solved_57.npy",
-        "predict_filename": "predict_nStep25_voltageHigh8_currentHigh5_yHigh_0.05_3file_lstm148_dropout0.3_lstm246_dropout0.2_lstm_216_dropout_0.2_lstm_164_lstm74_tanh_epoch6_batchsize2909_4file_motor_normal_solved_57.npy"
+        "test_savepath": "/home/zk/workspace/lstm_motor_diagnosis/lstm_radam_non_warmup/data/test_output_data/",
+        "origin_filename": "origin_nStep25_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.2_lstm76_dropout0.2_lstm32_radam_epoch5_batchsize2909.npy",
+        "predict_filename": "predict_nStep25_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.2_lstm76_dropout0.2_lstm32_radam_epoch5_batchsize2909.npy"
     },
 
     "selection": {
         "activation": ["relu", "softmax", "tanh"],
-        "loss_method": ["mse", "mae", "mse", "mape"],
-        "optimize_method": ["adam", "sgd", "Nadam", "rmsprop"]
+        "loss_method": ["mse", "mae", "mape"],
+        "optimize_method": ["adam", "sgd", "Nadam", "rmsprop", "radam"]
     }
 }
 
@@ -252,4 +225,6 @@ zk@jasonkay:~/workspace/lstm_motor_diagnosis/lstm_normal$ tree
 ③ 配置config.json中train_meta等配置, 并配置神经网络模型, 之后运行batch_train.py;
 
 ④ batch_train.py的训练模型被保存在config.json中声明的位置, 通过predict.py可以重载模型, 并进行预测;
+
+**⑤ 对于此分支, 配置优化器并没有用, 需要修改LstmUtils中的build_model()方法**
 
