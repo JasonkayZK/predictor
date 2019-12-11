@@ -2,14 +2,6 @@ A repository for motor diagnosis via LSTM or some other ANN.
 
 ## 基于LSTM神经网络的自回归预测
 
-本分支是基于[RAdam](https://github.com/LiyuanLucasLiu/RAdam)优化器实现, 可修改LstmUtils.py中的build_model()方法:
-
-```python
-optimizer=RAdam(total_steps = 2000, warmup_proportion = 0.1, min_lr = 1e-5)
-```
-
-本分支采用了warmup进行数据预热, 并设定了最小学习率为1e-5.
-
 ### 零. 项目依赖
 
 项目基于tensorflow与keras开发, 使用到的相关依赖以及版本如下
