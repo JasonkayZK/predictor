@@ -17,3 +17,12 @@
 
 ③ 整个项目的神经网络结构, 输入等均可通过config.json配置, 便于针对神经网络进行调参等操作;
 
+### 训练效果展示
+
+时域预测结果:
+
+![time_scale](image/time_scale.png) 
+
+频域预测结果:
+
+![frequent_scale](image/frequent_scale.png)
