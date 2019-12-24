@@ -94,7 +94,7 @@ class FftUtils(object):
         ys = y[:fft_size]
         yf = np.fft.rfft(ys)/fft_size
         freq = np.linspace(0, (1 / sampling_rate) / 2, len(yf))
-        plt.plot(freq, abs(yf), label=labels, color=colors)
+        plt.plot(freq, abs(yf), colors, label=labels, )
         # freqs = np.array(map(lambda x : x/1e3, freq))
         # yfp = 20*np.log10(np.clip(np.abs(yf),1e-20,1e100))
 
