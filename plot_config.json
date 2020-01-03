@@ -1,8 +1,9 @@
 {
+    
     "file": {
-        "savepath_prefix": "E:\\lstm_motor_diagnosis\\lstm_radam_non_warmup\\data\\test_output_data",
-        "origin_filename": "origin_nStep25_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.2_lstm76_dropout0.2_lstm32_radam_epoch5_batchsize2909.npy",
-        "predict_filename": "predict_nStep25_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.2_lstm76_dropout0.2_lstm32_radam_epoch5_batchsize2909.npy"
+        "savepath_prefix": "E:\\lstm_motor_diagnosis\\lstm_radam_non_warmup\\data\\fault_output_data",
+        "origin_filename": "fault_origin2_nStep25_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.2_lstm76_dropout0.2_lstm32_radam_epoch5_batchsize2909.npy",
+        "predict_filename": "fault_predict2_nStep25_voltageHigh8_currentHigh5_yHigh_0.05_lstm48_dropout0.2_lstm76_dropout0.2_lstm32_radam_epoch5_batchsize2909.npy"
     },
 
     "meta": {
